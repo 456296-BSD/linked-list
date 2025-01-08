@@ -9,7 +9,7 @@
 //
 // 	By: Sawyer Scheve
 //
-// 	Last Edited: 12/4/2024
+// 	Last Edited: 12/17/2024
 //
 
 // Make sure to put a header guard on your "student" class and call the file "student.h" otherwise everything will break.
@@ -21,7 +21,7 @@ private:
 	Student* student; // The student data.
 	Node* next = NULL; // The next node in the list.
 public:
-	Node(Student* s); // Don't set "s" this to null it will break things.
+	Node(Student* s); // Don't set "s" to null it will break things.
 	~Node();
 	
 	Student* GetStudent(); // Returns a pointer to "student".
