@@ -9,27 +9,49 @@
 //
 //	By: Sawyer Scheve
 //
-//	Last Edited: 1/8/2025
+//	Last Edited: 1/14/2025
 //
                                                    
 #include "node.h"
+#include <cstring>
 
 void Add();
 void Delete();
 void Print();
-void Quit();
 void Average();
 
 int main() {
-	//Student* s = new Student();
-	//Node* node = new Node(s);
-	Add();
+	bool isRunning = true;
+	while(isRunning) {
+		char input[80];
+		std::cout << "Enter Command. [PRINT, ADD, DELETE, AVG, QUIT]: ";
+		std::cin >> input;
+
+		if(strcmp(input, "ADD") == 0) {
+			Add();	
+		}
+		if(strcmp(input, "PRINT") == 0) {
+			Print();
+		}
+		if(strcmp(input, "DELETE") == 0) {
+			Delete();
+		}
+		if(strcmp(input, "AVG") == 0) {
+			Average();
+		}
+		if(strcmp(input, "QUIT") == 0) {
+			return 0;
+		}
+		else {
+			std::cout << "Bad Command" << std::endl;
+		}
+	}
 }
 
-void Add() {
+void Add(Node* & head, Node* current, Node* n) {
 	char f[80];
 	char l[80];
-       	int n;
+       	int i;
 	float g;
 
 	std::cout << "Please Enter New Student Information: " << std::endl;
@@ -38,14 +60,11 @@ void Add() {
 	std::cout << "Last Name: ";
 	std::cin >> l;
 	std::cout << "ID Number: ";
-	std::cin >> n;
+	std::cin >> i;
 	std::cout << "GPA: ";
 	std::cin >> g;
 
-	Student* s = new Student(f, l, n, g);
-	
-	Node n = new Node(s);
-	
+	Student* s = new Student(f, l, i, g);
 }
 
 void Delete() {
@@ -53,10 +72,6 @@ void Delete() {
 }
 
 void Print() {
-
-}
-
-void Quit() {
 
 }
 
