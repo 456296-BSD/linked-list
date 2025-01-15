@@ -25,14 +25,12 @@ Student::Student(char f[80], char l[80], int n, float g) {
 }
 
 char* Student::GetFirst() {
-	char* f;
-	strcpy(first, f);
+	char* f = first;
 	return f;
 }
 
 char* Student::GetLast() {
-	char* l;
-	strcpy(last, l);
+	char* l = last;
 	return l;
 }
 

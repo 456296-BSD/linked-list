@@ -9,37 +9,55 @@
 //
 //	By: Sawyer Scheve
 //
-//	Last Edited: 1/14/2025
+//	Last Edited: 1/15/2025
 //
                                                    
 #include "node.h"
 #include <cstring>
 
-void Add();
+void Add(Node* & head, Node* current, Node* n);
 void Delete();
-void Print();
-void Average();
+void Print(Node* current);
+void Average(Node* current);
 
 int main() {
 	bool isRunning = true;
+	Node* head = NULL;
 	while(isRunning) {
 		char input[80];
 		std::cout << "Enter Command. [PRINT, ADD, DELETE, AVG, QUIT]: ";
 		std::cin >> input;
 
 		if(strcmp(input, "ADD") == 0) {
-			Add();	
+			char f[80];
+			char l[80];
+			int num;
+			float gpa;
+
+			std::cout << "Input First Name: ";
+			std::cin >> f;
+			std::cout << "Input Last Name: ";
+			std::cin >> l;
+			std::cout << "Input ID: ";
+			std::cin >> num;
+			std::cout << "Input GPA: ";
+			std::cin >> gpa;
+
+			Student* s = new Student(f, l, num, gpa);
+			Node* n = new Node(s);
+
+			Add(head, head, n);	
 		}
-		if(strcmp(input, "PRINT") == 0) {
-			Print();
+		else if (strcmp(input, "PRINT") == 0) {
+			Print(head);
 		}
-		if(strcmp(input, "DELETE") == 0) {
+		else if(strcmp(input, "DELETE") == 0) {
 			Delete();
 		}
-		if(strcmp(input, "AVG") == 0) {
-			Average();
+		else if(strcmp(input, "AVG") == 0) {
+			Average(head);
 		}
-		if(strcmp(input, "QUIT") == 0) {
+		else if(strcmp(input, "QUIT") == 0) {
 			return 0;
 		}
 		else {
@@ -49,33 +67,51 @@ int main() {
 }
 
 void Add(Node* & head, Node* current, Node* n) {
-	char f[80];
-	char l[80];
-       	int i;
-	float g;
-
-	std::cout << "Please Enter New Student Information: " << std::endl;
-	std::cout << "First Name: ";
-	std::cin >> f;
-	std::cout << "Last Name: ";
-	std::cin >> l;
-	std::cout << "ID Number: ";
-	std::cin >> i;
-	std::cout << "GPA: ";
-	std::cin >> g;
-
-	Student* s = new Student(f, l, i, g);
+	if(head == NULL) {
+		head = n;
+	}
+	else if(current->GetNext() == NULL) {
+		current->SetNext(n);
+	}
+	else if(head->GetStudent()->GetNum() > n->GetStudent()->GetNum()) {
+		n->SetNext(head);
+	}
+	else if(current->GetStudent()->GetNum() < n->GetStudent()->GetNum()) {
+		n->SetNext(current->GetNext());
+		current->SetNext(n);
+	}
+	else {
+		Add(head, current->GetNext(), n);
+	}
 }
 
 void Delete() {
 
 }
 
-void Print() {
-
+void Print(Node* current) {
+	if(current != NULL) {
+		std::cout << current->GetStudent()->GetFirst() << std::endl 
+			<< current->GetStudent()->GetLast() << std::endl 
+			<< current->GetStudent()->GetNum() << std::endl 
+			<< current->GetStudent()->GetGpa() << std::endl << std::endl;
+		Print(current->GetNext());
+	}
 }
 
-void Average() {
+void Average(Node* current) {
+	float sum = 0;
+	float students = 0;
+	if(current != NULL) {
+		while(current->GetNext() != NULL) {
+			sum += current->GetStudent()->GetGpa();
+			students++;
+			current = current->GetNext();
+		}
+		sum += current->GetStudent()->GetGpa();
+		students++;
 
+		std::cout << sum / students << std::endl;
+	}
 }
 
